@@ -30,4 +30,3 @@ da_names = EveryPolitician::Wikidata.wikipedia_xpath(
 ) 
 
 EveryPolitician::Wikidata.scrape_wikidata(names: { en: names.values.flatten.uniq, da: da_names }, output: false)
-warn EveryPolitician::Wikidata.notify_rebuilder
