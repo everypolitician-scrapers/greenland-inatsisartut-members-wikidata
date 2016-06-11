@@ -29,4 +29,11 @@ da_names = EveryPolitician::Wikidata.wikipedia_xpath(
   xpath: '//table//td[1]//a[not(@class="new")]/@title',
 ) 
 
-EveryPolitician::Wikidata.scrape_wikidata(names: { en: names.values.flatten.uniq, da: da_names }, output: false)
+da_cat = WikiData::Category.new( 'Kategori:Medlemmer af Landstinget', 'da').member_titles |
+         WikiData::Category.new( 'Kategori:Tidligere medlemmer af Landstinget', 'da').member_titles |
+         WikiData::Category.new( 'Kategori:Medlemmer af Landsstyret', 'da').member_titles |
+         WikiData::Category.new( 'Kategori:Inatsisartutmedlemmer', 'da').member_titles 
+
+names[:cat] = WikiData::Category.new( 'Category:Members of the Parliament of Greenland', 'en').member_titles
+
+EveryPolitician::Wikidata.scrape_wikidata(names: { en: names.values.flatten.uniq, da: da_names | da_cat }, output: false)
